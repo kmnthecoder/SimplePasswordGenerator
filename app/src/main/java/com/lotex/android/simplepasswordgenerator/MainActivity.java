@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Assigning views to variables
         mGenerateButton = findViewById(R.id.button_generate);
         mTextPassword = findViewById(R.id.text_password);
-
 
         // Set on click listener for generate password button
         mGenerateButton.setOnClickListener(new View.OnClickListener() {
