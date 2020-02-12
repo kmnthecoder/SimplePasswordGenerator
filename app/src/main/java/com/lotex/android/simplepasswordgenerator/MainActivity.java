@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private ClipData mClip;
     private Spinner numSpinner;
     private CheckBox mUpperLower, mSymbols, mNumbers;
+    private EditText mExclude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         // Set up spinner and populate options
         spinnerSetup();
         // Set views to variables
-        checkBoxAttach();
+        viewAttach();
 
     } // onCreate end
 
@@ -67,11 +69,14 @@ public class MainActivity extends AppCompatActivity {
 
                     //Toast.makeText(getApplicationContext(), "Generating Password", Toast.LENGTH_SHORT).show();
 
+                    /*
                     Log.d(LOG_TAG, "mUpperLower is checked: " + mUpperLower.isChecked() +
                             "\nmSymbols is checked: " + mSymbols.isChecked() +
                             "\nmNumbers is checked: " + mNumbers.isChecked() +
                             "\nPassword length is: " + numSpinner.getSelectedItem().toString());
-                            //+ "\nPassword generated is: " + generatePassword());
+
+                     */
+                    //+ "\nPassword generated is: " + generatePassword());
 
                     mTextPassword.setText(generatePassword());
 
@@ -164,27 +169,39 @@ public class MainActivity extends AppCompatActivity {
         });
     } // spinnerSetup end
 
-    public void checkBoxAttach() {
+    public void viewAttach() {
         mUpperLower = findViewById(R.id.checkBox_upperlower);
         mSymbols = findViewById(R.id.checkBox_symbols);
         mNumbers = findViewById(R.id.checkBox_numbers);
-    } // checkBoxAttach end
+        mExclude = findViewById(R.id.editText_exclude);
+    } // viewAttach end
 
     public String generatePassword() {
         //Toast.makeText(getApplicationContext(), "Generating Password", Toast.LENGTH_SHORT).show();
 
+        // Initialize variables and default random password
         StringBuilder randomChars = new StringBuilder("qwertyuiopasdfghjklzxcvbnm");
         StringBuilder generatedPassword = new StringBuilder();
         Random random = new Random();
         int passwordLength = Integer.parseInt(numSpinner.getSelectedItem().toString());
 
-        /*
-        ** TO DO **
-        * Check for upper/lower case
-        * Check for symbols
-        * Check for numbers
-        * Check for exclude any characters
-         */
+        // Check options, change selection of random characters if selected
+        if (mUpperLower.isChecked()) {
+            randomChars.append(randomChars.toString().toUpperCase());
+        }
+        if (mSymbols.isChecked()) {
+            randomChars.append("!@#$%^&*");
+        }
+        if (mNumbers.isChecked()) {
+            randomChars.append("0123456789");
+        }
+
+        mExclude.setText(mExclude.getText().toString().replaceAll("\\[\\]\\\\", ""));
+        if (!mExclude.getText().toString().matches("")) {
+            String rChars = randomChars.toString();
+            rChars = rChars.replaceAll("[" + mExclude.getText().toString() + "]", "");
+            randomChars = new StringBuilder(rChars);
+        }
 
         // generate random password
         for (int i = 0; i < passwordLength; i++) {
