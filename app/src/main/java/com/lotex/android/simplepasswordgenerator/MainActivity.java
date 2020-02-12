@@ -29,27 +29,32 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "MainActivity";
 
-    private Button mGenerateButton;
     private TextView mTextPassword;
     private ClipboardManager mClipboard;
     private ClipData mClip;
-    private Spinner numSpinner;
 
     // CheckBox variables
-    private CheckBox mUpperLower;
-    private CheckBox mSymbols;
-    private CheckBox mNumbers;
+    private CheckBox mUpperLower, mSymbols, mNumbers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Assigning views to variables
-        mGenerateButton = findViewById(R.id.button_generate);
-        mTextPassword = findViewById(R.id.text_password);
-        numSpinner = findViewById(R.id.spinner_passwordlength);
+        // Set on click listener for generate password button
+        addListenerGenerate();
+        // Set on click listener for copy and pasting the generated password
+        passwordTextCopy();
+        // Set up spinner and populate options
+        spinnerSetup();
 
+    } // onCreate
+
+    // Add listener to generate password button
+    public void addListenerGenerate() {
+
+        // Set view to variable
+        Button mGenerateButton = findViewById(R.id.button_generate);
         // Set on click listener for generate password button
         mGenerateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,12 +64,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Generate Password", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-        // Set on click listener for copy and pasting the generated password
+    // Copies password when password text itself is tapped
+    public void passwordTextCopy() {
+
+        // Set view to variable
+        mTextPassword = findViewById(R.id.text_password);
+
         mTextPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // Copy text to universal android clipboard
                 mClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 String text = mTextPassword.getText().toString();
@@ -75,20 +85,25 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Text Copied", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-        // Set up spinner
+    // Set up spinner and populate with options
+    public void spinnerSetup() {
 
-        // Initialize spinner array
+        // Set view to variable
+        Spinner numSpinner = findViewById(R.id.spinner_passwordlength);
+
         ArrayList<String> spinnerOptions = new ArrayList<>();
         spinnerOptions.add("Select password length...");
 
+        // Populate spinner with options
         for (int i = 4; i <= 16; i++) {
             spinnerOptions.add(String.valueOf(i));
             //Log.d(LOG_TAG, "position " + (i-4) + " in spinnerOptions contains: " + spinnerOptions.get(i-4));
         }
 
+        // Disable first options for placeholder text, and gray it out
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, spinnerOptions) {
-
             @Override
             public boolean isEnabled(int position) {
                 return position != 0;
@@ -98,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0) {
+                if (position == 0) {
                     tv.setTextColor(Color.GRAY);
                 } else {
                     tv.setTextColor(Color.BLACK);
@@ -107,9 +122,11 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        // Set layout and attach adapter
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         numSpinner.setAdapter(spinnerArrayAdapter);
 
+        // Set listener to item selected in spinner
         numSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -117,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // If user change the default selection
                 // First item is disable and it is used for hint
-                if(position > 0){
+                if (position > 0) {
                     // Notify the selected item text
                     Toast.makeText(getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT).show();
                     ((TextView) view).setTextColor(Color.BLACK); //Change selected text color
@@ -129,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
-}
+
+
+} // end of class
