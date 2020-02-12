@@ -24,6 +24,7 @@ import org.w3c.dom.Text;
 import java.io.Console;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextPassword;
     private ClipboardManager mClipboard;
     private ClipData mClip;
-
-    // CheckBox variables
+    private Spinner numSpinner;
     private CheckBox mUpperLower, mSymbols, mNumbers;
 
     @Override
@@ -47,8 +47,10 @@ public class MainActivity extends AppCompatActivity {
         passwordTextCopy();
         // Set up spinner and populate options
         spinnerSetup();
+        // Set views to variables
+        checkBoxAttach();
 
-    } // onCreate
+    } // onCreate end
 
     // Add listener to generate password button
     public void addListenerGenerate() {
@@ -59,12 +61,27 @@ public class MainActivity extends AppCompatActivity {
         mGenerateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Placeholder function
-                // ***REPLACE FUNCTIONALITY HERE***
-                Toast.makeText(getApplicationContext(), "Generate Password", Toast.LENGTH_SHORT).show();
+
+                // Check if there is a number selection
+                if (numSpinner.getSelectedItemPosition() != 0) {
+
+                    //Toast.makeText(getApplicationContext(), "Generating Password", Toast.LENGTH_SHORT).show();
+
+                    Log.d(LOG_TAG, "mUpperLower is checked: " + mUpperLower.isChecked() +
+                            "\nmSymbols is checked: " + mSymbols.isChecked() +
+                            "\nmNumbers is checked: " + mNumbers.isChecked() +
+                            "\nPassword length is: " + numSpinner.getSelectedItem().toString());
+                            //+ "\nPassword generated is: " + generatePassword());
+
+                    mTextPassword.setText(generatePassword());
+
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please select password length", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-    }
+    } // addListenerGenerate end
 
     // Copies password when password text itself is tapped
     public void passwordTextCopy() {
@@ -85,13 +102,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Text Copied", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    } // passwordTextCopy end
 
     // Set up spinner and populate with options
     public void spinnerSetup() {
 
         // Set view to variable
-        Spinner numSpinner = findViewById(R.id.spinner_passwordlength);
+        numSpinner = findViewById(R.id.spinner_passwordlength);
 
         ArrayList<String> spinnerOptions = new ArrayList<>();
         spinnerOptions.add("Select password length...");
@@ -99,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
         // Populate spinner with options
         for (int i = 4; i <= 16; i++) {
             spinnerOptions.add(String.valueOf(i));
-            //Log.d(LOG_TAG, "position " + (i-4) + " in spinnerOptions contains: " + spinnerOptions.get(i-4));
         }
 
         // Disable first options for placeholder text, and gray it out
@@ -146,7 +162,38 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
+    } // spinnerSetup end
+
+    public void checkBoxAttach() {
+        mUpperLower = findViewById(R.id.checkBox_upperlower);
+        mSymbols = findViewById(R.id.checkBox_symbols);
+        mNumbers = findViewById(R.id.checkBox_numbers);
+    } // checkBoxAttach end
+
+    public String generatePassword() {
+        //Toast.makeText(getApplicationContext(), "Generating Password", Toast.LENGTH_SHORT).show();
+
+        StringBuilder randomChars = new StringBuilder("qwertyuiopasdfghjklzxcvbnm");
+        StringBuilder generatedPassword = new StringBuilder();
+        Random random = new Random();
+        int passwordLength = Integer.parseInt(numSpinner.getSelectedItem().toString());
+
+        /*
+        ** TO DO **
+        * Check for upper/lower case
+        * Check for symbols
+        * Check for numbers
+        * Check for exclude any characters
+         */
+
+        // generate random password
+        for (int i = 0; i < passwordLength; i++) {
+            generatedPassword.append(randomChars.charAt(random.nextInt(randomChars.length())));
+        }
+
+        return generatedPassword.toString();
+
+    } // generatePassword end
 
 
-} // end of class
+} // class end

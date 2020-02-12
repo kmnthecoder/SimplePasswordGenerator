@@ -2,7 +2,7 @@
     <string name="app_name">SimplePasswordGenerator</string>
     <string name="placeholder_password">Password</string>
     <string name="generate_password_text">Generate Password</string>
-    <string name="checkBox_symbols_text"><![CDATA[Symbols (e.g., !@#$%^&*()_+)]]></string>
+    <string name="checkBox_symbols_text"><![CDATA[Symbols (e.g., !@#$%^&*_+?></\)]]></string>
     <string name="checkBox_upperlower_text">Upper/Lower Case (default lower case)</string>
     <string name="checkBox_numbers_text">Numbers</string>
     <string name="editText_exclude_text">Exclude any characters (no spaces)</string>
