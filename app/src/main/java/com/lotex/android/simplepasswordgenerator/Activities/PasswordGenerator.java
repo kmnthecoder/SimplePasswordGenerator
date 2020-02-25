@@ -1,4 +1,4 @@
-package com.lotex.android.simplepasswordgenerator;
+package com.lotex.android.simplepasswordgenerator.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,7 +8,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,16 +19,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.lotex.android.simplepasswordgenerator.R;
 
-import java.io.Console;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class PasswordGenerator extends AppCompatActivity {
 
-    private static final String LOG_TAG = "MainActivity";
+    private static final String LOG_TAG = PasswordGenerator.class.getSimpleName();
 
     private TextView mTextPassword;
     private ClipboardManager mClipboard;
@@ -41,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_password_generator);
 
         // Set on click listener for generate password button
         addListenerGenerate();
@@ -52,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // Set views to variables
         viewAttach();
 
-    } // onCreate end
+    }
 
     // Add listener to generate password button
     public void addListenerGenerate() {
@@ -213,4 +210,4 @@ public class MainActivity extends AppCompatActivity {
     } // generatePassword end
 
 
-} // class end
+} // end of class
