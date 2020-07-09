@@ -7,5 +7,4 @@
     <string name="checkBox_numbers_text">Numbers</string>
     <string name="editText_exclude_text">Exclude any characters (no spaces)</string>
     <string name="button_password_generator">Password Generator</string>
-    <string name="button_password_locker">Password Locker</string>
 </resources>

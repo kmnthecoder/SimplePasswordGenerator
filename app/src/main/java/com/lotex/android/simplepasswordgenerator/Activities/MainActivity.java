@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private Button mPasswordGenerator, mPasswordLocker;
+    private Button mPasswordGenerator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,17 +26,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void viewAttach() {
         mPasswordGenerator = findViewById(R.id.button_password_generator);
         mPasswordGenerator.setOnClickListener(this);
-        mPasswordLocker = findViewById(R.id.button_password_locker);
-        mPasswordLocker.setOnClickListener(this);
     }
 
-    public void passwordGeneratorActivity() {
+    public void passwordGeneratorIntent() {
         Intent intent = new Intent(MainActivity.this, PasswordGenerator.class);
-        startActivity(intent);
-    }
-
-    public void passwordLockerActivity() {
-        Intent intent = new Intent(MainActivity.this, PasswordLocker.class);
         startActivity(intent);
     }
 
@@ -44,10 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_password_generator:
-                passwordGeneratorActivity();
-                break;
-            case R.id.button_password_locker:
-                passwordLockerActivity();
+                passwordGeneratorIntent();
                 break;
             default:
                 break;
