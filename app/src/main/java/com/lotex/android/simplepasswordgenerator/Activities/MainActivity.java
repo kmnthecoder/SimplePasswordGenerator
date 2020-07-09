@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
     public void viewAttach() {
-        mPasswordGenerator = findViewById(R.id.button_password_generator);
+        mPasswordGenerator = findViewById(R.id.button_generate);
         mPasswordGenerator.setOnClickListener(this);
     }
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button_password_generator:
+            case R.id.button_generate:
                 passwordGeneratorIntent();
                 break;
             default:
