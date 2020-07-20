@@ -1,4 +1,7 @@
 # SimplePasswordGenerator
+
+<img src="https://github.com/kmnthecoder/SimplePasswordGenerator/blob/master/demo/pw_generator_demo.gif" width="360" height="640">
+
 A simple password generator app that gives you a few password options.
 
 # License [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
