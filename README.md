@@ -4,6 +4,17 @@
 
 A simple password generator app that gives you a few password options.
 
+# Lessons learned / Final thoughts
+
+A small learning project in order to get myself accustomed with Android app programming. 
+
+Concepts used in the making of this app:
+- Activities, intents
+- Spinners, EditText, CheckBox, TextView, ClipboardManager
+- Toasts
+- RegEx
+- Layouts, e.g., ConstraintLayout
+    
 # License [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
     Copyright 2020 Kevin Nguyen
