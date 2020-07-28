@@ -1,8 +1,8 @@
 # SimplePasswordGenerator
 
-<img src="https://github.com/kmnthecoder/SimplePasswordGenerator/blob/master/demo/pw_generator_demo.gif" width="360" height="640">
-
 A simple password generator app that gives you a few password options.
+
+<img src="https://github.com/kmnthecoder/SimplePasswordGenerator/blob/master/demo/pw_generator_demo.gif" width="360" height="640">
 
 # Lessons learned / Final thoughts
 
